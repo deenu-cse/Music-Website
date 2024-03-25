@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        #box {
+            margin-top: 90px;
+            border: 1px solid black;
+            width: 390px;
+            height: 260px;
+        }
+
+        .inp input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #btn {
+            width: 190px;
+            border: 1px solid black;
+            height: 30px;
+            border-radius: 8px;
+            background-color: aqua;
+            margin-left: 90px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h2 id="qs">write here..</h2>
+        <div class="inp">
+            <div>
+                <input class="options" type="radio" name="option" value="a">
+                <label for="option1">option1</label>
+            </div>
+            <div>
+                <input class="options" type="radio" name="option" value="b">
+                <label for="option2">option2</label>
+            </div>
+            <div>
+                <input class="options" type="radio" name="option" value="c">
+                <label for="option3">option3</label>
+            </div>
+        </div>
+        <button id="btn" onclick="sumbitquiz()">Sumbit</button>
+    </div>
+    <script>
+        let qse = [{
+            'que': '1) Who sang the title song for the latest Bond film, No Time to Die?',
+            'a': 'Adele',
+            'b': 'Sam Smith',
+            'c': 'Billie Eilish',
+            'correct': 'c'
+        },
+        {
+            'que': '2) Which flies a green, white, and orange (in that order) tricolor flag? ',
+            'a': 'Ireland',
+            'b': 'Ivory Coast',
+            'c': 'Italy',
+            'correct': 'a'
+        },
+        {
+            'que': '3) What company makes the Xperia model of smartphone? ',
+            'a': 'Samsung',
+            'b': 'Sony',
+            'c': 'Nokia',
+            'correct': 'b'
+        }
+        ]
+        let index = 0;
+        let total = qse.length;
+        let right = 0,
+            wrong = 0;
+        let qs = document.getElementById("qs")
+        let opin = document.querySelectorAll('.options')
+        function loadquiz() {
+            if (index === total) {
+                return end();
+            }
+            let final = reset()
+            let data = qse[index]
+            qs.innerText = `${index + 1}${data.que}`
+            opin[0].nextElementSibling.innerText = data.a;
+            opin[1].nextElementSibling.innerText = data.b;
+            opin[2].nextElementSibling.innerText = data.c;
+        }
+        function sumbitquiz() {
+            let data = qse[index]
+            let ans = anscheck()
+            if (ans === data.correct) {
+                right++
+            }
+            else {
+                wrong++
+            }
+            index++
+            loadquiz()
+            return;
+        }
+        function anscheck() {
+            let answer;
+            opin.forEach(
+                (input) => {
+                    if (input.checked) {
+                        answer = input.value;
+                    }
+                }
+            )
+            return answer
+        }
+        function reset() {
+            opin.forEach(
+                (input) => {
+                    input.checked = false;
+                }
+            )
+        }
+        function end() {
+            document.getElementById("box").innerHTML = `
+    <h1>Thanks for playing quiz</h1>
+    <h2>${right}/${total}Are correct</h2>`
+        }
+        loadquiz();
+    </script>
+</body>
+
+</html>

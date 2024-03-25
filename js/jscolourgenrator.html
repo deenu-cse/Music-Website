@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colour genrator</title>
+    <style>
+        #box {
+            width: 600px;
+            height: 430px;
+            border: 2px solid lightblue;
+        }
+
+        #btn {
+            width: 80px;
+            height: 26px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Colour Genrator</h1>
+    <button id="btn">Click Here</button>
+    <div id="box"></div>
+
+    <script>
+        function random() {
+            let select = Math.floor(Math.random() * 16777215)
+            let colour = "#" + select.toString(16)
+            document.getElementById("box").style.backgroundColor = colour
+        }
+        random()
+        document.getElementById("btn").addEventListener("click", () => {
+            random()
+        })
+    </script>
+</body>
+
+</html>
